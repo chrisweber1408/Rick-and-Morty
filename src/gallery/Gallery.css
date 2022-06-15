@@ -1,0 +1,14 @@
+.gallerie-wrapper .gallery {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+.gallerie-wrapper .navigation {
+    margin-bottom: 15px;
+}
+
+.gallerie-wrapper .search {
+    margin-bottom: 15px;
+}

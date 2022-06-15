@@ -1,0 +1,14 @@
+.gallery-item {
+    border: 1px #000000 solid;
+    margin-bottom: 25px;
+}
+
+.gallery-item .image-wrapper {
+    border: 1px #000000 solid;
+}
+
+.gallery-item .character-information {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}

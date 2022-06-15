@@ -14,7 +14,7 @@ export default function CharacterDetail() {
         axios.get(`https://rickandmortyapi.com/api/character/${characterId}`)
             .then((response: AxiosResponse<Character, any>) => setCharacter(response.data))
             .catch(() => setErrorMessage('The characters could not be loaded.'));
-    }, [])
+    }, [characterId])
 
     return (
         <div className="character-detail">

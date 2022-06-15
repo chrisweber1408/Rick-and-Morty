@@ -10,6 +10,7 @@ export default function Gallery() {
     const [name, setName] = useState('');
     const [characters, setCharacters] = useState<Array<Character>>([]);
     const [info, setInfo] = useState<Info>();
+    const [page, setPage] = useState(localStorage.getItem("page") ?? "1")
 
     useEffect(() => {
         if (characters.length === 0) {
@@ -17,13 +18,19 @@ export default function Gallery() {
         }
     }, [errorMessage, characters.length]);
 
+    useEffect(()=>{
+        localStorage.setItem("page", page)
+    },[page])
+
+
+
     useEffect(() => {
         const timeoutId = setTimeout(() => setErrorMessage(''), 5000);
         // Das return gibt eine Funktion zurück, die von react aufgerufen wird um hinter dem Effekt wieder aufzuräumen.
         return () => clearTimeout(timeoutId);
     }, [errorMessage])
 
-    const fetchPage = (url: string = 'https://rickandmortyapi.com/api/character') => {
+    const fetchPage = (url: string = `https://rickandmortyapi.com/api/character?page=${page}`) => {
         axios.get(url)
             .then((response: AxiosResponse<PageData, any>) => response.data)
             .then((page: PageData) => {
@@ -33,9 +40,15 @@ export default function Gallery() {
             .catch(() => setErrorMessage('The characters could not be loaded.'));
     }
 
-    const nextPage = () => fetchPage(info!.next);
+    const nextPage = () =>{
+        setPage((oldPage)=>`${parseInt(oldPage) + 1}`)
+        fetchPage(info!.next)
+    };
 
-    const prevPage = () => fetchPage(info!.prev);
+    const prevPage = () =>{
+        setPage((oldPage)=>`${parseInt(oldPage) - 1}`)
+        fetchPage(info!.prev);
+    }
 
     const components = characters
             .filter(c => c.name.toLowerCase().includes(name.toLowerCase()))

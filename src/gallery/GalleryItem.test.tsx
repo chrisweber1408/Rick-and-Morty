@@ -1,6 +1,7 @@
 import { render, screen } from "@testing-library/react"
 import { Character } from "../model"
 import GalleryItem from "./GalleryItem"
+import {MemoryRouter} from "react-router-dom";
 
 test('that character is rendered', () => {
 
@@ -14,7 +15,7 @@ test('that character is rendered', () => {
     }
     
     // When
-    render(<GalleryItem character={character} />)
+    render(<MemoryRouter><GalleryItem character={character} /></MemoryRouter>)
 
     // Then
     expect((screen.getByTestId('image') as HTMLImageElement).src).toEqual('http://imageurl/')
